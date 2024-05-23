@@ -257,9 +257,15 @@ class NewsScraper:
                 break
 
             results.extend(self.process_articles(articles, search_phrase, start_month))
-            has_next_page = self.go_to_next_page()
+
+            # Check if the last article processed is older than the start month
+            if any(datetime.strptime(article['date'], '%Y-%m-%d') < start_month for article in results):
+                has_next_page = False
+            else:
+                has_next_page = self.go_to_next_page()
 
         return results
+
 
     def process_articles(self, articles, search_phrase, start_month):
         """Process each article to extract necessary information."""
@@ -304,6 +310,7 @@ class NewsScraper:
 
         return results
 
+
     def get_news_date(self, timestamp_element):
         """Get the date of the news article from the timestamp element."""
         date_str = self.browser.get_element_attribute(timestamp_element, "data-timestamp")
@@ -316,6 +323,8 @@ class NewsScraper:
             if next_button and 'href' in self.browser.get_element_attribute(next_button, 'outerHTML'):
                 self.browser.click_element(next_button)
                 return True
+            else:
+                return False
         except Exception as e:
             logging.error(f"Error navigating to next page: {e}")
-        return False
+            return False
