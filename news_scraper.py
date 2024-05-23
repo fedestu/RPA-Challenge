@@ -11,18 +11,10 @@ class NewsScraper:
     def __init__(self, base_url):
         self.browser = Selenium()
         self.base_url = base_url
-        self.image_folder = self.create_daily_image_folder()
-        self.setup_browser()
-        self.setup_logging()
-
-    def setup_browser(self):
-        """Open and configure the browser."""
         self.browser.open_available_browser(self.base_url)
         self.browser.maximize_browser_window()
-
-    def setup_logging(self):
-        """Configure logging settings."""
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+        self.image_folder = self.create_daily_image_folder()
 
     def create_daily_image_folder(self):
         """Create a folder for storing images downloaded today."""
