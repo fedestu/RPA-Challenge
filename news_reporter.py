@@ -11,22 +11,23 @@ class NewsReporter:
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     def create_excel_report(self, data):
-        # Obtener la fecha de hoy en el formato 'YYYY-MM-DD'
+        """Create an Excel report from the given data."""
+        # Get today's date in 'YYYY-MM-DD' format
         today_str = datetime.now().strftime('%Y-%m-%d')
 
         # File name including today's date
         filename = os.path.join(self.output_dir, f"news_data_{today_str}.xlsx")
 
-        # Check that the director exists. If not, create it
+        # Ensure the output directory exists
         os.makedirs(self.output_dir, exist_ok=True)
 
         logging.info("Creating Excel report")
 
-        # A DataFrame is created and saved in the Excel file.
+        # Create a DataFrame and save it to an Excel file
         df = pd.DataFrame(data)
         df.to_excel(filename, index=False, engine='openpyxl')
 
-        # Load the book to apply the formatting
+        # Load the workbook to apply formatting
         wb = load_workbook(filename)
         ws = wb.active
 
@@ -42,7 +43,8 @@ class NewsReporter:
             for cell in col:
                 try:
                     max_length = max(max_length, len(str(cell.value)))
-                except:
+                except Exception as e:
+                    logging.warning(f"Error adjusting column width: {e}")
                     pass
             adjusted_width = max_length + 2
             ws.column_dimensions[column].width = adjusted_width
