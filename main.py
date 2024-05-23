@@ -1,7 +1,7 @@
 from news_scraper import NewsScraper
 from news_reporter import NewsReporter
 import logging
-#from RPA.Robocorp.WorkItems import WorkItems
+from RPA.Robocorp.WorkItems import WorkItems
 
 def main():
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -11,17 +11,17 @@ def main():
     try:
         
         # Posibles lineas para Robocorp y la obtención de los datos desde el WorkItem
-        # work_items = WorkItems()
-        # work_items.get_input_work_item()
+        work_items = WorkItems()
+        work_items.get_input_work_item()
 
         # Extrae la información necesaria del ítem de trabajo
-        # search_phrase = work_items.get_work_item_variable("search_phrase")
-        # category_name = work_items.get_work_item_variable("category_name")
-        # num_months = work_items.get_work_item_variable("num_months")
+        search_phrase = work_items.get_work_item_variable("search_phrase")
+        category_name = work_items.get_work_item_variable("category_name")
+        num_months = work_items.get_work_item_variable("num_months")
         
-        search_phrase = "Building"
-        category_name = "Newsletter"
-        num_months = 0
+        # search_phrase = "Building"
+        # category_name = "Newsletter"
+        # num_months = 0
         # Starts navigation directly to search page
         scraper.open_search_page(search_phrase) 
 
