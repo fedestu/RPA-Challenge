@@ -1,0 +1,7 @@
+robot:
+  name: NewsScraperRobot
+tasks:
+  CollectNewsData:
+    description: "Collects news data and generates a report"
+    command: python -m main.py
+condaConfigFile: conda.yaml
