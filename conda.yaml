@@ -1,8 +1,14 @@
 channels:
   - conda-forge
+
 dependencies:
-  - python=3.9.7
-  - requests
-  - pandas
-  - openpyxl
-  - robotframework
+  - python=3.10.12
+  - pip=23.2.1
+  - robocorp-truststore=0.8.0
+  - pip:
+    - requests
+    - pandas
+    - openpyxl
+    - rpaframework==28.0.0
+    - robocorp==1.4.0
+    - robocorp-browser==2.2.1
