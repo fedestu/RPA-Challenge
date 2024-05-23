@@ -24,4 +24,13 @@ This challenge focuses on automating the extraction of news data from a chosen n
 - Implement a fault-tolerant architecture (use explicit waits).
 - Follow RPA best practices (logging, string formatting).
 
+## Input Data Example
+```json
+{
+  "search_phrase": "Building",
+  "category_name": "Newsletter",
+  "num_months": 0
+}
+```
+
 For more details, refer to the [RPA Challenge page](https://thoughtfulautomation.notion.site/RPA-Challenge-Fresh-news-2-0-37e2db5f88cb48d5ab1c972973226eb4).
