@@ -237,7 +237,6 @@ class NewsScraper:
             raise Exception(f"Failed to download image from {url}")
 
     def collect_news_data(self, search_phrase, num_months):
-        """Collect news data from the specified number of months ago until now."""
         start_month = datetime.now().replace(day=1) - relativedelta(months=max(1, num_months) - 1)
         logging.info(f"Collecting news data from: {start_month.strftime('%Y-%m')} to present")
         results = []
@@ -258,14 +257,13 @@ class NewsScraper:
 
             results.extend(self.process_articles(articles, search_phrase, start_month))
 
-            # Check if the last article processed is older than the start month
+            # Verifica si se debe detener la paginación
             if any(datetime.strptime(article['date'], '%Y-%m-%d') < start_month for article in results):
                 has_next_page = False
             else:
                 has_next_page = self.go_to_next_page()
 
         return results
-
 
     def process_articles(self, articles, search_phrase, start_month):
         """Process each article to extract necessary information."""
